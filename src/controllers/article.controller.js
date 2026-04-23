@@ -211,7 +211,7 @@ exports.getMyArticles = async (req, res) => {
         { model: Category, as: 'category', attributes: ['id', 'name', 'slug'] },
         { model: Tag, as: 'tags', attributes: ['id', 'name', 'slug'], through: { attributes: [] } }
       ],
-      order: [['createdAt', 'DESC']],
+      order: [['created_at', 'DESC']],
       limit: parseInt(limit) || 10,
       offset: skip,
       distinct: true

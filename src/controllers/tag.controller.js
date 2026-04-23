@@ -9,7 +9,7 @@ const { validate } = require('../middlewares/validator.middleware');
 exports.getTags = async (req, res) => {
   try {
     const tags = await Tag.findAll({
-      order: [['createdAt', 'DESC']]
+      order: [['created_at', 'DESC']]
     });
     
     success(res, tags, '获取成功');

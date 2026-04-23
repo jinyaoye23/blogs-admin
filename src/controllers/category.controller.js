@@ -9,7 +9,7 @@ const { validate } = require('../middlewares/validator.middleware');
 exports.getCategories = async (req, res) => {
   try {
     const categories = await Category.findAll({
-      order: [['sortOrder', 'ASC'], ['createdAt', 'DESC']]
+      order: [['sortOrder', 'ASC'], ['created_at', 'DESC']]
     });
     
     success(res, categories, '获取成功');

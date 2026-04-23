@@ -32,7 +32,7 @@ exports.getCommentsByArticle = async (req, res) => {
           ]
         }
       ],
-      order: [['createdAt', 'DESC']],
+      order: [['created_at', 'DESC']],
       limit: parseInt(limit) || 10,
       offset: skip,
       distinct: true
@@ -133,7 +133,7 @@ exports.getMyComments = async (req, res) => {
         { model: Article, as: 'article', attributes: ['id', 'title'] },
         { model: User, as: 'author', attributes: ['id', 'username', 'avatar'] }
       ],
-      order: [['createdAt', 'DESC']],
+      order: [['created_at', 'DESC']],
       limit: parseInt(limit) || 10,
       offset: skip,
       distinct: true
