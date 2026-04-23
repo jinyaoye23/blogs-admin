@@ -125,12 +125,48 @@ my-blog-admin/
 
 ## 🔌 API 接口
 
-### 认证接口 `/api/auth`
+### 📚 API 文档
+
+为方便前端项目接入,我们提供了完整的 API 文档和资源:
+
+#### 🎯 快速开始
+- **🚀 前端接入指南** - [`FRONTEND_INTEGRATION_GUIDE.md`](./FRONTEND_INTEGRATION_GUIDE.md) ⭐⭐⭐⭐⭐
+  - 三步快速接入流程
+  - 完整的项目配置指南
+  - Vue/React 使用示例
+  
+- **📋 资源总览** - [`FRONTEND_RESOURCES_OVERVIEW.md`](./FRONTEND_RESOURCES_OVERVIEW.md)
+  - 所有可用资源的汇总
+  - 学习路径推荐
+  - 使用技巧和常见问题
+
+#### 📖 详细文档
+- **⚡ 快速参考** - [`API_QUICK_REFERENCE.md`](./API_QUICK_REFERENCE.md) ⭐⭐⭐⭐⭐
+  - 简洁的 API 速查表
+  - 现成的代码模板 (Axios + Vue/React)
+  - 适合日常开发查阅
+
+- **📘 完整文档** - [`API_DOCUMENTATION.md`](./API_DOCUMENTATION.md)
+  - 详细的接口说明
+  - 完整的请求/响应示例
+  - 适合深入了解每个接口
+
+#### 🔧 测试工具
+- **Postman 集合** - [`postman_collection.json`](./postman_collection.json)
+  - 可直接导入 Postman
+  - 自动管理 Token
+  - 方便接口测试和调试
+
+---
+
+### 核心接口概览
+
+#### 认证接口 `/api/auth`
 - `POST /register` - 用户注册
 - `POST /login` - 用户登录
 - `GET /me` - 获取当前用户信息（需要token）
 
-### 文章接口 `/api/articles`
+#### 文章接口 `/api/articles`
 - `GET /` - 获取文章列表（公开）
 - `GET /:id` - 获取单篇文章（公开）
 - `POST /` - 创建文章（需登录）
@@ -138,33 +174,33 @@ my-blog-admin/
 - `DELETE /:id` - 删除文章（需登录）
 - `GET /my` - 获取我的文章（需登录）
 
-### 分类接口 `/api/categories`
+#### 分类接口 `/api/categories`
 - `GET /` - 获取所有分类（公开）
 - `GET /:id` - 获取单个分类（公开）
 - `POST /` - 创建分类（需管理员）
 - `PUT /:id` - 更新分类（需管理员）
 - `DELETE /:id` - 删除分类（需管理员）
 
-### 标签接口 `/api/tags`
+#### 标签接口 `/api/tags`
 - `GET /` - 获取所有标签（公开）
 - `GET /:id` - 获取单个标签（公开）
 - `POST /` - 创建标签（需管理员）
 - `PUT /:id` - 更新标签（需管理员）
 - `DELETE /:id` - 删除标签（需管理员）
 
-### 评论接口 `/api/comments`
+#### 评论接口 `/api/comments`
 - `GET /article/:articleId` - 获取文章评论（公开）
 - `POST /article/:articleId` - 创建评论（需登录）
 - `DELETE /:id` - 删除评论（需登录）
 - `GET /my` - 获取我的评论（需登录）
 
-### 用户接口 `/api/users`（需登录）
+#### 用户接口 `/api/users`（需登录）
 - `GET /` - 获取所有用户（需管理员）
 - `GET /:id` - 获取单个用户
 - `PUT /:id` - 更新用户信息
 - `DELETE /:id` - 删除用户（需管理员）
 
-### 上传接口 `/api/upload`（需登录）
+#### 上传接口 `/api/upload`（需登录）
 - `POST /single` - 单图上传
 - `POST /multiple` - 多图上传（最多5张）
 
