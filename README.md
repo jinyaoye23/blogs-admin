@@ -157,6 +157,18 @@ my-blog-admin/
   - 自动管理 Token
   - 方便接口测试和调试
 
+#### 🌐 网络访问
+- **📱 局域网访问指南** - [`LAN_ACCESS_GUIDE.md`](./LAN_ACCESS_GUIDE.md)
+  - 配置手机/平板等设备访问
+  - 防火墙配置说明
+  - 常见问题解答
+
+#### 📝 示例数据
+- **📚 初始文章指南** - [`INITIAL_ARTICLES_GUIDE.md`](./INITIAL_ARTICLES_GUIDE.md)
+  - 10 篇前端工程化技术博客
+  - 涵盖 Webpack、Vite、TypeScript 等主题
+  - 快速演示和测试用示例数据
+
 ---
 
 ### 核心接口概览

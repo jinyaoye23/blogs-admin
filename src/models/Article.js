@@ -80,14 +80,16 @@ const Article = sequelize.define('Article', {
   createdAt: 'created_at',
   updatedAt: 'updated_at',
   hooks: {
-    beforeCreate: (article) => {
-      if (article.title && !article.slug) {
-        article.slug = article.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    beforeValidate: (article) => {
+      // 在验证前生成 slug,确保 slug 不为 null
+      if (article.title && (!article.slug || article.slug.trim() === '')) {
+        article.slug = article.title.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-').replace(/(^-|-$)/g, '');
       }
     },
     beforeUpdate: (article) => {
-      if (article.changed('title') && !article.changed('slug')) {
-        article.slug = article.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      // 更新时,如果标题改变且 slug 未手动设置,则重新生成
+      if (article.changed('title') && (!article.changed('slug') || !article.slug || article.slug.trim() === '')) {
+        article.slug = article.title.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-').replace(/(^-|-$)/g, '');
       }
     }
   }

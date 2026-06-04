@@ -38,10 +38,24 @@ exports.getArticles = async (req, res) => {
 
     // 排序处理
     const order = [];
+    let sortField = sortBy.startsWith('-') ? sortBy.substring(1) : sortBy;
+    
+    // 将驼峰命名转换为下划线命名
+    const fieldMapping = {
+      'createdAt': 'created_at',
+      'updatedAt': 'updated_at',
+      'publishedAt': 'published_at',
+      'viewCount': 'view_count',
+      'likeCount': 'like_count',
+      'commentCount': 'comment_count'
+    };
+    
+    sortField = fieldMapping[sortField] || sortField;
+    
     if (sortBy.startsWith('-')) {
-      order.push([sortBy.substring(1), 'DESC']);
+      order.push([sortField, 'DESC']);
     } else {
-      order.push([sortBy, 'ASC']);
+      order.push([sortField, 'ASC']);
     }
 
     // 查询总数

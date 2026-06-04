@@ -61,6 +61,7 @@ app.use((err, req, res, next) => {
 
 // 启动服务器
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0'; // 监听所有网络接口,支持局域网访问
 
 const startServer = async () => {
   try {
@@ -71,10 +72,12 @@ const startServer = async () => {
     await syncModels(false);
     
     // 启动服务
-    app.listen(PORT, () => {
+    app.listen(PORT, HOST, () => {
       console.log(`🚀 服务器运行在 http://localhost:${PORT}`);
+      console.log(`🌐 局域网访问: http://<你的IP地址>:${PORT}`);
       console.log(`📝 环境: ${process.env.NODE_ENV}`);
       console.log(`💾 数据库: MySQL`);
+      console.log(`\n💡 提示: 在浏览器访问 http://localhost:${PORT}/health 测试连接`);
     });
   } catch (error) {
     console.error('❌ 服务器启动失败:', error.message);
