@@ -37,7 +37,18 @@ npm install
 
 3. **配置环境变量**
 ```bash
-cp .env.example .env
+cp .env.development.example .env.development
+cp .env.production.example .env.production
+```
+
+开发环境使用：
+```bash
+cp .env.development.example .env
+```
+
+生产环境请直接使用环境变量或复制示例文件：
+```bash
+cp .env.production.example .env
 ```
 
 编辑 `.env` 文件，配置数据库和其他参数：
@@ -52,11 +63,13 @@ DB_USER=root
 DB_PASSWORD=your_password
 DB_NAME=my_blog
 
-JWT_SECRET=your_jwt_secret_key
+JWT_SECRET=your_jwt_secret_key_change_this_in_production
 JWT_EXPIRES_IN=7d
 UPLOAD_PATH=./uploads
 MAX_FILE_SIZE=5242880
 ```
+
+生产环境推荐使用容器环境变量方式，不要在仓库里提交真实密码。
 
 4. **创建数据库**
 ```sql

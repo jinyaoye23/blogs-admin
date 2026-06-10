@@ -1,9 +1,15 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const compression = require('compression');
-require('dotenv').config();
+const dotenv = require('dotenv');
+
+// 先加载基础 .env，再加载 .env.<NODE_ENV> 覆盖开发/生产环境配置
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+const env = process.env.NODE_ENV || 'development';
+dotenv.config({ path: path.resolve(process.cwd(), `.env.${env}`), override: true });
 
 // 导入数据库配置
 const { sequelize, testConnection, syncModels } = require('./config/database');

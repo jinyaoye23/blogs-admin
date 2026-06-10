@@ -38,22 +38,39 @@ jobs:
           source: "my-blog-admin.tar"
           target: "~/"
 
-      - name: Load image and restart container on remote server
+      - name: Generate remote .env.production and restart container
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.ALIYUN_HOST }}
           username: ${{ secrets.ALIYUN_USERNAME }}
           password: ${{ secrets.ALIYUN_PASSWORD }}
-          port: 3000
+          port: 22
           script: |
+            # Create .env.production on remote from GitHub Secrets (do not store in repo)
+            cat > ~/.env.production <<'EOF'
+            NODE_ENV=production
+            PORT=3000
+
+            DB_HOST=${{ secrets.DB_HOST }}
+            DB_PORT=${{ secrets.DB_PORT }}
+            DB_USER=${{ secrets.DB_USER }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            DB_NAME=${{ secrets.DB_NAME }}
+
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            JWT_EXPIRES_IN=7d
+            UPLOAD_PATH=./uploads
+            MAX_FILE_SIZE=5242880
+            EOF
+
+            # Load and run container using env file
             docker load -i ~/my-blog-admin.tar
             docker rm -f my-blog-admin || true
             docker run -d \
               --name my-blog-admin \
               --restart always \
               -p 3000:3000 \
-              -e NODE_ENV=production \
-              -e PORT=3000 \
+              --env-file ~/.env.production \
               -e HOST=0.0.0.0 \
               my-blog-admin:${{ github.sha }}
             rm -f ~/my-blog-admin.tar
