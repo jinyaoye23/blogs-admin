@@ -44,7 +44,7 @@ jobs:
           host: ${{ secrets.ALIYUN_HOST }}
           username: ${{ secrets.ALIYUN_USERNAME }}
           password: ${{ secrets.ALIYUN_PASSWORD }}
-          port: 22
+          port: 3000
           script: |
             docker load -i ~/my-blog-admin.tar
             docker rm -f my-blog-admin || true
