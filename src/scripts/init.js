@@ -1,39 +1,15 @@
-const User = require('../models/User');
+const path = require('path');
+const dotenv = require('dotenv');
+
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+const env = process.env.NODE_ENV || 'development';
+dotenv.config({ path: path.resolve(process.cwd(), `.env.${env}`), override: true });
+
 const Category = require('../models/Category');
 const Tag = require('../models/Tag');
 const { sequelize, syncModels } = require('../config/database');
 const { createDatabaseIfNotExists } = require('../utils/db-helper');
-require('dotenv').config();
-
-// 初始化管理员账号
-const initAdmin = async () => {
-  try {
-    // 检查是否已存在管理员
-    const existingAdmin = await User.findOne({ where: { role: 'admin' } });
-    
-    if (existingAdmin) {
-      console.log('⚠️  管理员账号已存在');
-      return;
-    }
-
-    // 创建管理员账号
-    const admin = await User.create({
-      username: 'admin',
-      email: 'admin@example.com',
-      password: 'admin123',
-      role: 'admin',
-      bio: '系统管理员'
-    });
-
-    console.log('✅ 管理员账号创建成功');
-    console.log('   用户名: admin');
-    console.log('   邮箱: admin@example.com');
-    console.log('   密码: admin123');
-    console.log('   ⚠️  请及时修改默认密码！');
-  } catch (error) {
-    console.error('❌ 创建管理员失败:', error.message);
-  }
-};
+const { seedAdmin } = require('../utils/init-data');
 
 // 初始化默认分类
 const initCategories = async () => {
@@ -119,7 +95,7 @@ const initialize = async () => {
     console.log('✅ 数据库模型同步成功（已重建表）');
 
     // 初始化数据
-    await initAdmin();
+    await seedAdmin();
     await initCategories();
     await initTags();
     

@@ -13,6 +13,7 @@ dotenv.config({ path: path.resolve(process.cwd(), `.env.${env}`), override: true
 
 // 导入数据库配置
 const { sequelize, testConnection, syncModels } = require('./config/database');
+const { seedAdmin } = require('./utils/init-data');
 
 // 导入路由
 const authRoutes = require('./routes/auth.routes');
@@ -76,6 +77,7 @@ const startServer = async () => {
     
     // 同步数据库模型（生产环境建议使用 alter: true 而不是 force）
     await syncModels(false);
+    await seedAdmin();
     
     // 启动服务
     app.listen(PORT, HOST, () => {
