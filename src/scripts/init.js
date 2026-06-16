@@ -1,9 +1,19 @@
+const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 const env = process.env.NODE_ENV || 'development';
 dotenv.config({ path: path.resolve(process.cwd(), `.env.${env}`), override: true });
+
+// 生产环境下优先加载服务器上的专用 env 文件作为回退配置
+if (env === 'production') {
+  const remoteEnvPath = '/home/deploy/my-blog-admin/.env.production';
+  if (fs.existsSync(remoteEnvPath)) {
+    dotenv.config({ path: remoteEnvPath, override: false });
+    console.log(`✅ Loaded remote env file: ${remoteEnvPath}`);
+  }
+}
 
 const Category = require('../models/Category');
 const Tag = require('../models/Tag');
