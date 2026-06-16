@@ -9,8 +9,8 @@ const User = require('../models/User');
 
 const ADMIN_CONFIG = {
   username: process.env.ADMIN_USERNAME || 'admin',
-  email: process.env.ADMIN_EMAIL,
-  password: process.env.ADMIN_PASSWORD,
+  email: process.env.ADMIN_EMAIL || 'admin@example.com',
+  password: process.env.ADMIN_PASSWORD || 'admin123',
   role: process.env.ADMIN_ROLE || 'admin',
   bio: process.env.ADMIN_BIO || '系统管理员',
   status: 'active'
